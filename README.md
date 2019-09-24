@@ -1,4 +1,4 @@
-# ENSE 483
+# CS 425
 
 My solutions to assignments in CS 425 - Image Processing, Fall 2019
 
