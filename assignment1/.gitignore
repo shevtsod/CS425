@@ -36,3 +36,10 @@
 *.app
 
 # End of https://www.gitignore.io/api/c++
+
+# Compiled files directory
+build/
+
+# Program outputs
+out/**/*.raw
+
