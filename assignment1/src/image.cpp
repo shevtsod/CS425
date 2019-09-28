@@ -8,6 +8,7 @@ namespace image {
  *
  * @param character Original character
  * @param position Bit position to unset
+ * @returns Character with bit at given position unset
  */
 unsigned char unsetBit(const unsigned char character, int position) {
   return character & ~(1 << position);
@@ -34,7 +35,7 @@ unsigned char average(unsigned char* characters, const unsigned long size) {
   }
 
   // Divide sum by number of elements in buffer
-  return (unsigned char)(sum / size);
+  return sum / size;
 }
 
 /**
