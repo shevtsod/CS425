@@ -23,3 +23,9 @@ To build and run the program, run:
 make
 ./build/out
 ```
+
+Program outputs in `.raw` format are available under
+[`./assets/out/raw/`](./assets/out/raw).
+
+Screenshots of program outputs in `.png` format are available under
+[`./assets/out/screenshots/`](./assets/out/screenshots).

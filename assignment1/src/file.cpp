@@ -10,9 +10,9 @@ namespace file {
  *
  * @param path Path to input file
  * @param buffer Buffer to store data into
- * @param length Length of the buffer
+ * @param size Size of the buffer
  */
-void read(const char* path, char* buffer, size_t length) {
+void read(const char* path, char* buffer, const unsigned long size) {
   // Open file as an input file stream
   std::ifstream file(path);
 
@@ -24,7 +24,7 @@ void read(const char* path, char* buffer, size_t length) {
   }
 
   // Deserialize file contents into the buffer
-  file.read(buffer, sizeof(char) * length);
+  file.read(buffer, sizeof(char) * size);
 
   file.close();
 }
@@ -34,10 +34,10 @@ void read(const char* path, char* buffer, size_t length) {
  *
  * @param path Path to output file
  * @param buffer Buffer to store data into
- * @param length Length of the buffer
+ * @param size Size of the buffer
  *
  */
-void write(const char* path, char* buffer, size_t length) {
+void write(const char* path, char* buffer, const unsigned long size) {
   // Open file as an output file stream
   std::ofstream file(path);
 
@@ -49,7 +49,7 @@ void write(const char* path, char* buffer, size_t length) {
   }
 
   // Serialize buffer into file
-  file.write(buffer, sizeof(char) * length);
+  file.write(buffer, sizeof(char) * size);
 
   file.close();
 }
