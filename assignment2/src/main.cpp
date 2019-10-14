@@ -1,24 +1,8 @@
 #include <iostream>
 
-#include "file.h"
-#include "image.h"
-
-////////////////////////////////////////////////////////////////////////////////
-// CONSTANTS
-////////////////////////////////////////////////////////////////////////////////
-
-// File paths
-
-const char* FILE_PATH_IN_P1 = "./in/ct.raw";
-const char* FILE_PATH_IN_P2 = "./in/testpattern.raw";
-const char* FILE_PATH_IN_P3 = "./in/circuit.raw";
-
-const char* FILE_PATH_OUT_P1 = "./out/p1_histogram_ct.raw";
-
-const char* FILE_PATH_OUT_P2_1 = "./out/p2_testpattern_h1.raw";
-const char* FILE_PATH_OUT_P2_2 = "./out/p2_testpattern_h2.raw";
-
-const char* FILE_PATH_OUT_P3 = "./out/p3_circuit.raw";
+#include "file/file.h"
+#include "image/filter.h"
+#include "image/histogram.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // PROGRAM 1
@@ -34,21 +18,27 @@ const char* FILE_PATH_OUT_P3 = "./out/p3_circuit.raw";
 void program1() {
   std::cout << "Running \"Programming 1\" ..." << std::endl;
 
+  // File paths
+  const char* FILE_PATH_IN = "./in/ct.raw";
+  const char* FILE_PATH_OUT = "./out/p1_histogram_ct.raw";
+
   // Image dimensions
   const int ROWS = 256;
   const int COLS = 256;
 
   // Buffers for holding image data
   unsigned char imageIn[ROWS][COLS];
-  unsigned char imageOut1[ROWS][COLS];
-
-  // Compute the equalized histogram
+  unsigned char imageOut[ROWS][COLS];
 
   // Read input file into buffer
-  file::read(FILE_PATH_IN_P1, (char*)&imageIn[0][0], ROWS * COLS);
+  file::read(FILE_PATH_IN, (char*)&imageIn[0][0], ROWS * COLS);
+
+  // Compute the equalized histogram
+  image::genEqualizedHistogramImage(&imageIn[0][0], &imageOut[0][0], ROWS,
+                                    COLS);
 
   // Write output buffers to files
-  file::write(FILE_PATH_OUT_P1, (char*)&imageOut1[0][0], ROWS * COLS);
+  file::write(FILE_PATH_OUT, (char*)&imageOut[0][0], ROWS * COLS);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -76,6 +66,11 @@ void program1() {
 void program2() {
   std::cout << "Running \"Programming 2\" ..." << std::endl;
 
+  // File paths
+  const char* FILE_PATH_IN = "./in/testpattern.raw";
+  const char* FILE_PATH_OUT_1 = "./out/p2_testpattern_h1.raw";
+  const char* FILE_PATH_OUT_2 = "./out/p2_testpattern_h2.raw";
+
   // Image dimensions
   const int ROWS = 500;
   const int COLS = 500;
@@ -84,21 +79,31 @@ void program2() {
   unsigned char imageIn[ROWS][COLS];
   unsigned char imageOut1[ROWS][COLS];
   unsigned char imageOut2[ROWS][COLS];
+  double H1[image::MASK_DIMENSION][image::MASK_DIMENSION] = {
+      1.0 / 9, 1.0 / 9, 1.0 / 9, 1.0 / 9, 1.0 / 9,
+      1.0 / 9, 1.0 / 9, 1.0 / 9, 1.0 / 9};
+  double H2[image::MASK_DIMENSION][image::MASK_DIMENSION] = {
+      0.075, 0.125, 0.075, 0.125, 0.200, 0.125, 0.075, 0.125, 0.075};
 
   // Read input file into buffer
-  file::read(FILE_PATH_IN_P2, (char*)&imageIn[0][0], ROWS * COLS);
+  file::read(FILE_PATH_IN, (char*)&imageIn[0][0], ROWS * COLS);
 
   // Apply averaging filter H1 into first output buffer
+  image::applyLinearFilter(&imageIn[0][0], H1, &imageOut1[0][0], ROWS, COLS);
 
   // Apply averaging filter H2 into second output buffer
+  image::applyLinearFilter(&imageIn[0][0], H2, &imageOut2[0][0], ROWS, COLS);
 
   // Write output buffers to files
-  file::write(FILE_PATH_OUT_P2_1, (char*)&imageOut1[0][0], ROWS * COLS);
-  file::write(FILE_PATH_OUT_P2_2, (char*)&imageOut2[0][0], ROWS * COLS);
+  file::write(FILE_PATH_OUT_1, (char*)&imageOut1[0][0], ROWS * COLS);
+  file::write(FILE_PATH_OUT_2, (char*)&imageOut2[0][0], ROWS * COLS);
 
   // Q: Are there visible visual differences between the results of the two
   //    filters?
-  // A:
+  // A: Both filters smooth or blur the image, but there are slight visible
+  //    differences. In particular, small dots and sharp edges in the original
+  //    image appear as boxes when filter H1 is applied, but they appear rounder
+  //    when filter H2 is applied.
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -114,21 +119,26 @@ void program2() {
 void program3() {
   std::cout << "Running \"Programming 3\" ..." << std::endl;
 
+  // File paths
+  const char* FILE_PATH_IN = "./in/circuit.raw";
+  const char* FILE_PATH_OUT = "./out/p3_circuit.raw";
+
   // Image dimensions
-  const int ROWS = 455;
-  const int COLS = 440;
+  const int ROWS = 440;
+  const int COLS = 455;
 
   // Buffers for holding image data
   unsigned char imageIn[ROWS][COLS];
-  unsigned char imageOut1[ROWS][COLS];
+  unsigned char imageOut[ROWS][COLS];
 
   // Read input file into buffer
-  file::read(FILE_PATH_IN_P3, (char*)&imageIn[0][0], ROWS * COLS);
+  file::read(FILE_PATH_IN, (char*)&imageIn[0][0], ROWS * COLS);
 
   // Apply median filter to input image
+  image::applyMedianFilter(&imageIn[0][0], &imageOut[0][0], ROWS, COLS);
 
   // Write output buffers to files
-  file::write(FILE_PATH_OUT_P3, (char*)&imageOut1[0][0], ROWS * COLS);
+  file::write(FILE_PATH_OUT, (char*)&imageOut[0][0], ROWS * COLS);
 }
 
 ////////////////////////////////////////////////////////////////////////////////

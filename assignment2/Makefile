@@ -10,7 +10,7 @@ CXXLAGS := \
   -Wextra \
   -Werror \
 # sources (c++ files)
-SRC := $(wildcard src/*.cpp)
+SRC := $(wildcard src/*.cpp) $(wildcard src/**/*.cpp)
 # build directory
 BUILD := ./build
 # executable name
