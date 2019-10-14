@@ -1,8 +1,6 @@
-# CS 425 - Assignment 1
+# CS 425 - Assignment 2
 
 ## Problem Statement
-
-Given an image [`rose.raw`](./in/rose.raw):
 
 ### Problem 1
 
