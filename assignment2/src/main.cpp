@@ -1,8 +1,8 @@
 #include <iostream>
 
-#include "file/file.h"
-#include "image/filter.h"
-#include "image/histogram.h"
+#include "file/file.hpp"
+#include "image/filter.hpp"
+#include "image/histogram.hpp"
 
 ////////////////////////////////////////////////////////////////////////////////
 // PROGRAM 1

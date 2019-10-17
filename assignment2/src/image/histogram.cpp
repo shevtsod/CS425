@@ -1,6 +1,6 @@
-#include "histogram.h"
+#include "histogram.hpp"
 
-#include "image.h"
+#include "image.hpp"
 
 namespace image {
 

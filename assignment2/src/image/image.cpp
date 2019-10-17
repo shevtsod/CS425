@@ -1,6 +1,6 @@
-#include "image.h"
+#include "image.hpp"
 
-#include "../util/util.h"
+#include "../util/util.hpp"
 
 namespace image {
 

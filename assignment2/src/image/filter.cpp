@@ -1,6 +1,6 @@
-#include "filter.h"
+#include "filter.hpp"
 
-#include "../util/util.h"
+#include "../util/util.hpp"
 
 namespace image {
 
