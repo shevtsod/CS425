@@ -60,7 +60,7 @@ void insertionSort(const T SRC[], T dest[], const int SIZE) {
   for (int i = 1; i < SIZE; i++) {
     for (int j = i; j > 0 && dest[j - 1] > dest[j]; j--) {
       // Swap elements at index j and j - 1
-      unsigned char temp = dest[j];
+      T temp = dest[j];
       dest[j] = dest[j - 1];
       dest[j - 1] = temp;
     }
