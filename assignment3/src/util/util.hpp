@@ -1,5 +1,7 @@
-#ifndef H_UTIL
-#define H_UTIL
+#ifndef UTIL_H
+#define UTIL_H
+
+#include <cmath>
 
 namespace util {
 
@@ -43,6 +45,41 @@ T average(const T SRC[], const int SIZE) {
 }
 
 /**
+ * Returns the weighted sum of the given buffer of items and the given array of
+ * weights of each respective item.
+ */
+template <class T>
+T weightedSum(const T SRC[], const double WEIGHTS[], const int SIZE) {
+  if (SIZE == 0) {
+    return 0;
+  }
+
+  T sum = 0;
+
+  // Iterate through the array of items and accumulate the weighted sum
+  for (int i = 0; i < SIZE; i++) {
+    sum += SRC[i] * WEIGHTS[i];
+  }
+
+  return sum;
+}
+
+/**
+ * Returns the magnitude of a vector with the given X and Y components using the
+ * forumula:
+ *
+ *   ||(x, y)|| = sqrt(x^2 + y^2)
+ *
+ * @param X x component of vector
+ * @param Y y compontent of vector
+ * @returns Vector magnitude
+ */
+template <class T>
+T magnitude(const T X, const T Y) {
+  return sqrt(X * X + Y * Y);
+}
+
+/**
  * Sorts a given buffer into a destination buffer of the same size. Sorting is
  * implemented using the insertion sort algorithm.
  *
@@ -69,4 +106,4 @@ void insertionSort(const T SRC[], T dest[], const int SIZE) {
 
 }  // namespace util
 
-#endif  // H_UTIL
+#endif  // UTIL_H

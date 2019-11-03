@@ -20,6 +20,14 @@ void genReducedQuantizationImage(const unsigned char* SRC,
                                  const int COLS,
                                  const int UNSET_BIT_COUNT);
 
+void applyThreshold(const unsigned char* SRC,
+                    unsigned char* dest,
+                    const int ROWS,
+                    const int COLS,
+                    const unsigned char NEW_LOW,
+                    const unsigned char NEW_HIGH,
+                    const unsigned char THRESHOLD);
+
 }  // namespace image
 
 #endif  // IMAGE_H

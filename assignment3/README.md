@@ -21,11 +21,10 @@ Implement the 3x3 Laplacian sharpening filter. Given the input file
 
 Developed in C++ and compiled using [GCC](https://gcc.gnu.org/).
 
-To build and run the program, run:
+To build and run the program, use the following command:
 
 ```shell
-make
-./build/out
+make && ./build/out
 ```
 
 Program outputs in `.raw` format are available under

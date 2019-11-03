@@ -108,4 +108,34 @@ void genReducedQuantizationImage(const unsigned char* SRC,
   }
 }
 
+/**
+ * Produces a new image where each pixel value is mapped to one of two intensity
+ * levels based on the given threshold value. Pixels with an intensity lower
+ * than the threshold are mapped to the NEW_LOW intensity value, and pixels
+ * greater than or equal to the threshold are mapped to the NEW_HIGH value.
+ * @param SRC       Buffer containing original image
+ * @param dest      Destination buffer for thresholded image
+ * @param ROWS      Number of rows in original image
+ * @param COLS      Number of columns in original image
+ * @param NEW_LOW   New value for pixels with intensities below threshold
+ * @param NEW_HIGH  New value for pixels with intensities greater than or equal
+ *                  to the threshold value
+ * @param THRESHOLD Chosen threshold intensity value
+ *
+ */
+void applyThreshold(const unsigned char* SRC,
+                    unsigned char* dest,
+                    const int ROWS,
+                    const int COLS,
+                    const unsigned char NEW_LOW,
+                    const unsigned char NEW_HIGH,
+                    const unsigned char THRESHOLD) {
+  // Loop through the entire source image pixel by pixel
+  for (int i = 0; i < ROWS * COLS; i++) {
+    // Set each pixel in the destination buffer to its new value based on a
+    // comparison against the given threshold
+    dest[i] = (SRC[i] < THRESHOLD) ? NEW_LOW : NEW_HIGH;
+  }
+}
+
 }  // namespace image
