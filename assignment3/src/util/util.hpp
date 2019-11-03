@@ -20,7 +20,7 @@ T unsetBit(const T SRC, const int POS) {
 
 /**
  * Returns the average element given an arbitrary buffer of elements. Element
- * must be castable to integer.
+ * must be castable to a floating point number.
  *
  * @param SRC  Buffer containing elements to average
  * @param SIZE Size of buffer
@@ -33,15 +33,38 @@ T average(const T SRC[], const int SIZE) {
     return 0;
   }
 
-  unsigned long sum = 0;
+  unsigned double sum = 0;
 
   // Get the sum of all character values
   for (int i = 0; i < SIZE; i++) {
-    sum += (int)SRC[i];
+    sum += (double)SRC[i];
   }
 
   // Divide sum by number of elements in buffer
-  return (T)((double)sum / SIZE);
+  return (T)(sum / SIZE);
+}
+
+/**
+ * Returns the median element given an arbitrary buffer of elements. Element
+ * must be castable to a floating point number.
+ * @param SRC  Buffer containing elements
+ * @param SIZE Size of buffer
+ * @returns    Median element in buffer
+ */
+template <class T>
+T median(const T SRC[], const int SIZE) {
+  // Handle case of empty buffer
+  if (SIZE == 0) {
+    return 0;
+  }
+
+  // If the size of the list is odd, return the middle element
+  if (SIZE % 2 == 1) {
+    return SRC[(SIZE - 1) / 2];
+  }
+
+  // If the size is even, average the two middle elements
+  return (SRC[(SIZE - 1) / 2] + SRC[(SIZE - 1) / 2 - 1]) / 2;
 }
 
 /**
