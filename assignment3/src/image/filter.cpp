@@ -121,15 +121,10 @@ void applyMedianFilter(const unsigned char* SRC,
 
       // Sort the buffer of pixels inside the mask to get the median value
       unsigned char sortedMaskPixels[MASK_SIZE * MASK_SIZE];
-
       util::insertionSort(maskPixels, sortedMaskPixels, count);
 
-      // Get the median (middle value)
-      const int MEDIAN_INDEX = (double)(count - 1) / 2;
-      unsigned char output = sortedMaskPixels[MEDIAN_INDEX];
-
       // Output the median into the output image at the same pixel
-      dest[i * COLS + j] = output;
+      dest[i * COLS + j] = util::median(sortedMaskPixels, count);
     }
   }
 }
