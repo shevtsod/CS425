@@ -7,3 +7,4 @@ My solutions to assignments in **CS 425 - Image Processing**, Fall 2019.
 - [**Assignment 1**](./assignment1)
 - [**Assignment 2**](./assignment2)
 - [**Assignment 3**](./assignment3)
+- **~~Assignment 4~~** (no programming questions)
