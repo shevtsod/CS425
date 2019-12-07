@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "file/file.hpp"
+#include "image/fft.hpp"
 #include "image/image.hpp"
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -32,12 +33,24 @@ void program() {
   // Buffers for holding image data
   unsigned char imageSquareIn[ROWS][COLS];
   unsigned char imageCarIn[ROWS][COLS];
+
+  image::Complex fftSquare[ROWS][COLS];
+  image::Complex fftCar[ROWS][COLS];
+
   unsigned char imageSquareOut[ROWS][COLS];
   unsigned char imageCarOut[ROWS][COLS];
 
   // Read input files into buffers
   file::read(FILE_PATH_SQUARE_IN, (char*)&imageSquareIn[0][0], ROWS * COLS);
   file::read(FILE_PATH_CAR_IN, (char*)&imageCarIn[0][0], ROWS * COLS);
+
+  // Apply 2D FFT to each image and convert from complex to real numbers
+  image::apply2DFFT(&imageSquareIn[0][0], &fftSquare[0][0], ROWS, COLS);
+  image::apply2DFFT(&imageCarIn[0][0], &fftCar[0][0], ROWS, COLS);
+
+  image::complexToRealImage(&fftSquare[0][0], &imageSquareOut[0][0], ROWS,
+                            COLS);
+  image::complexToRealImage(&fftCar[0][0], &imageCarOut[0][0], ROWS, COLS);
 
   // Write output buffers to files
   file::write(FILE_PATH_SQUARE_OUT, (char*)&imageSquareOut[0][0], ROWS * COLS);

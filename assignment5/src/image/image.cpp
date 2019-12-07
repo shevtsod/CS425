@@ -21,7 +21,7 @@ namespace image {
  * @param COLS   Number of columns in original image
  * @param FACTOR Downscaling factor
  */
-void genDownscaledImage(unsigned char* SRC,
+void genDownscaledImage(const unsigned char* SRC,
                         unsigned char* dest,
                         const int ROWS,
                         const int COLS,
@@ -37,7 +37,7 @@ void genDownscaledImage(unsigned char* SRC,
   // Current column in source image
   int col = 0;
   // Cursor for source buffer
-  unsigned char* ptrSrc = SRC;
+  const unsigned char* ptrSrc = SRC;
 
   // Divide the source image into blocks based on the destination image size
   for (int i = 0; i < DEST_ROWS * DEST_COLS; i++) {

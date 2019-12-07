@@ -7,7 +7,7 @@ namespace util {
 
 /**
  * Returns a new element with the bit at the given position unset.
- * Least significant bit = position 0.
+ * Least-significant bit = position 0.
  *
  * @param SRC Original element
  * @param POS Bit position to unset
@@ -16,6 +16,33 @@ namespace util {
 template <class T>
 T unsetBit(const T SRC, const int POS) {
   return SRC & ~(1 << POS);
+}
+
+/**
+ * Returns a new element with the order of NUM_BITS least-significant bits
+ * reversed. Least-significant bit = position 0.
+ * e.g., SRC=001101, NUM_BITS=4 => 001011
+ *
+ * @param SRC      Original element
+ * @param NUM_BITS Number of least significant bits to reverse order of
+ * @returns        Element with order of bits reversed
+ */
+template <class T>
+T reverseBits(const T SRC, const int NUM_BITS) {
+  T dest = 0;
+
+  for (int i = 0; i < NUM_BITS; i++) {
+    // Get the mask for the current bit position
+    int mask = SRC & (1 << i);
+
+    // Reverse the position of the mask
+    mask = mask >> i << (NUM_BITS - i - 1);
+
+    // Apply the mask to the destination value
+    dest |= mask;
+  }
+
+  return dest;
 }
 
 /**
@@ -99,7 +126,7 @@ T weightedSum(const T SRC[], const double WEIGHTS[], const int SIZE) {
  */
 template <class T>
 T magnitude(const T X, const T Y) {
-  return sqrt(X * X + Y * Y);
+  return std::sqrt(X * X + Y * Y);
 }
 
 /**
